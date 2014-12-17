@@ -1,17 +1,23 @@
 package ru.fizteh.fivt.students.ivan_ivanov.shell;
 
+import java.io.File;
 import java.nio.file.Path;
 
 public class ShellState {
 
     private Path path;
 
-    final Path getPath() {
+    public ShellState(File inFile) {
+
+        path = inFile.getAbsoluteFile().toPath();
+    }
+
+    public Path getPath() {
 
         return path;
     }
 
-    final void setPath(final Path inPath) {
+    public void setPath(Path inPath) {
 
         path = inPath;
     }

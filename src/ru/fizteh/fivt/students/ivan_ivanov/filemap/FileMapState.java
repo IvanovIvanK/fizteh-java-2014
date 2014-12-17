@@ -6,23 +6,27 @@ import java.util.Map;
 
 public class FileMapState {
 
-    public Map<String, String> dataBase;
-    public File dataFile;
+    private Map<String, String> dataBase;
+    private File dataFile;
 
-    public final Map<String, String> getDataBase() {
-        return dataBase;
-    }
+    public FileMapState(File currentFile) {
 
-    public final File getDataFile() {
-        return dataFile;
-    }
-
-    public FileMapState(final File currentFile) {
         dataBase = new HashMap<String, String>();
         dataFile = currentFile;
     }
-    
+
+    public Map<String, String> getDataBase() {
+
+        return dataBase;
+    }
+
+    public File getDataFile() {
+
+        return dataFile;
+    }
+
     public void setDataBase(Map<String, String> map) {
+
         dataBase = map;
     }
 }

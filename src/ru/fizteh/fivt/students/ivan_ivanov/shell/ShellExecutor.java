@@ -1,13 +1,13 @@
 package ru.fizteh.fivt.students.ivan_ivanov.shell;
 
-public class ShellExecutor extends Executor {
+public class ShellExecutor extends Executor<ShellState> {
 
     public ShellExecutor() {
 
         list();
     }
 
-    public final void list() {
+    public void list() {
 
         Command pwd = new Pwd();
         mapOfCmd.put(pwd.getName(), pwd);
@@ -19,13 +19,11 @@ public class ShellExecutor extends Executor {
         mapOfCmd.put(cp.getName(), cp);
         Command mv = new Mv();
         mapOfCmd.put(mv.getName(), mv);
-        Command ls = new Ls();
-        mapOfCmd.put(ls.getName(), ls);
         Command rm = new Rm();
         mapOfCmd.put(rm.getName(), rm);
         Command exit = new Exit();
         mapOfCmd.put(exit.getName(), exit);
-        Command cat = new Cat();
-        mapOfCmd.put(cat.getName(), cat);
+        Command ls = new Ls();
+        mapOfCmd.put(ls.getName(), ls);
     }
 }

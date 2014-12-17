@@ -1,30 +1,29 @@
 package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
 
 import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
-import ru.fizteh.fivt.students.ivan_ivanov.shell.Shell;
 
 import java.io.IOException;
 
-public class MultiFileHashMapGet implements Command {
+public class MultiFileHashMapGet implements Command<MultiFileHashMapState> {
 
     @Override
-    public final String getName() {
+    public String getName() {
 
         return "get";
     }
 
     @Override
-    public final void executeCmd(final Shell shell, final String[] args) throws IOException {
+    public void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
 
         if (args.length != 1) {
             System.out.println("incorrect number of arguments");
             return;
         }
-        if (((MultiFileHashMap) shell).getMFHMState().getCurrentTable() == null) {
+        if (inState.getCurrentTable() == null) {
             System.out.println("no table");
             return;
         }
-        String value = ((MultiFileHashMap) shell).getMFHMState().getFromCurrentTable(args[0]);
+        String value = inState.getFromCurrentTable(args[0]);
         if (null == value) {
             System.out.println("not found");
         } else {

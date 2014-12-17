@@ -6,17 +6,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class Cat implements Command {
 
-    public final String getName() {
+public class Cat implements Command<ShellState> {
+
+    public String getName() {
 
         return "cat";
     }
 
+
     public static void catenate(final String fileName) {
         String buffer = "";
         try (FileReader filescan =  new FileReader(fileName);
-                BufferedReader bufreader = new BufferedReader(filescan)) {
+            BufferedReader bufreader = new BufferedReader(filescan)) {
             while ((buffer = bufreader.readLine()) != null) {
                 System.out.println(buffer);
             }
@@ -25,11 +27,11 @@ public class Cat implements Command {
             return;
         } catch (IOException e) {
             System.out.println("Can't read file");
-      }
+        }
     }
 
-    public final void executeCmd(final Shell shell, final String[] args) throws IOException {
-        Path thePath = shell.getState().getPath().resolve(args[0]);
+    public void executeCmd(ShellState inState, String[] args) throws IOException {
+        Path thePath = inState.getPath().resolve(args[0]);
         try {
             if (1 == args.length) {
                 if (thePath.toFile().exists()) {
@@ -44,9 +46,7 @@ public class Cat implements Command {
             while (!thePath.toFile().isDirectory()) {
                 thePath = thePath.getParent();
             }
-            shell.setState(thePath);
+            inState.setPath(thePath);
         }
     }
 }
-
-

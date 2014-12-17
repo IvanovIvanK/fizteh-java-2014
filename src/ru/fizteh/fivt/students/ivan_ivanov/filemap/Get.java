@@ -1,19 +1,24 @@
 package ru.fizteh.fivt.students.ivan_ivanov.filemap;
 
-import ru.fizteh.fivt.students.ivan_ivanov.shell.Shell;
 import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 
 import java.io.IOException;
 
-public class Get implements Command {
+public class Get implements Command<FileMapState> {
 
-    public final String getName() {
+    public String getName() {
+
         return "get";
     }
 
-    public final void executeCmd(final Shell filemap, final String[] args) throws IOException {
-        String key = args[0];
-        String value = ((FileMap) filemap).getFileMapState().getDataBase().get(key);
+    public void executeCmd(FileMapState inState, String[] args) throws IOException {
+
+        if (args.length != 1) {
+            System.out.println("incorrect number of arguments");
+            return;
+        }
+
+        String value = inState.getDataBase().get(args[0]);
         if (value == null) {
             System.out.println("not found");
         } else {

@@ -2,6 +2,7 @@ package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -9,74 +10,67 @@ public class MultiFileHashMapState {
 
     private MultiFileHashMapTableProvider provider;
     private MultiFileHashMapTable currentTable;
-    private int flag;    //flag = 0 - we`re not working with any table, 1 - we are
 
-    public MultiFileHashMapState(final File inFile) throws IOException {
+    public MultiFileHashMapState(File inFile) throws IOException {
 
-        flag = 0;
         currentTable = null;
         MultiFileHashMapTableProviderFactory factory = new MultiFileHashMapTableProviderFactory();
         provider = factory.create(inFile.getPath());
     }
 
-    public final int getFlag() {
+    public int getChangesBaseSize() {
 
-        return flag;
+        return currentTable.getChangesBaseSize();
     }
 
-    public final void changeFlag() {
+    public MultiFileHashMapTable createTable(String name) throws IOException {
 
-        if (0 == flag) {
-            flag = 1;
-        } else {
-            flag = 0;
-        }
+        MultiFileHashMapTable tmp = provider.createTable(name);
+        return tmp;
     }
 
-
-    public final MultiFileHashMapTable createTable(final String name) throws IOException {
-
-        return provider.createTable(name);
-    }
-
-    public final MultiFileHashMapTable getTable(final String name) throws IOException {
+    public MultiFileHashMapTable getTable(String name) throws IOException {
 
         return provider.getTable(name);
     }
 
-    public final MultiFileHashMapTable getCurrentTable() throws IOException {
+    public MultiFileHashMapTable getCurrentTable() throws IOException {
 
         return currentTable;
     }
 
-    public final void setCurrentTable(final String name) throws IOException {
+    public void setCurrentTable(String name, Map<String, String> inMap, File inFile) throws IOException {
 
         currentTable = provider.getTable(name);
+        currentTable.changeCurrentTable(inMap, inFile);
     }
 
-    public final void setCurrentTable() throws IOException {
+    public void deleteTable(String name) throws IOException {
+
+        provider.removeTable(name);
         currentTable = null;
     }
 
-    public final  void deleteTable(final String name) throws IOException {
-        provider.removeTable(name);
-    }
+    public String putToCurrentTable(String key, String value) {
 
-    public final String putToCurrentTable(final String key, final String value) {
         return currentTable.put(key, value);
     }
 
-    public final String getFromCurrentTable(final String key) {
+    public String getFromCurrentTable(String key) {
+
         return currentTable.get(key);
     }
 
-    public final String removeFromCurrentTable(final String key) {
+    public String removeFromCurrentTable(String key) {
+
         return currentTable.remove(key);
     }
-    public final Map<String, String> getDataBaseFromCurrentTable() {
-        return currentTable.getDataBase();
-    }
-    public final Set<String> getTableSet() {
+
+    public Set<String> getTableSet() {
         return provider.getTables();
+    }
+
+    public List<String> getCurrentTableListOfKeys() {
+        return currentTable.list();
     }
 }

@@ -1,20 +1,24 @@
 package ru.fizteh.fivt.students.ivan_ivanov.filemap;
 
+import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
+
 import java.io.IOException;
 
-import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
-import ru.fizteh.fivt.students.ivan_ivanov.shell.Shell;
+public class Put implements Command<FileMapState> {
 
-public class Put implements Command {
+    public String getName() {
 
-    public final String getName() {
         return "put";
     }
 
-    public final void executeCmd(final Shell filemap, final String[] args) throws IOException {
-        String key = args[0];
-        String value = args[1];
-        String oldValue = ((FileMap) filemap).getFileMapState().getDataBase().put(key, value);
+    public void executeCmd(FileMapState inState, String[] args) throws IOException {
+
+        if (args.length != 2) {
+            System.out.println("incorrect number of arguments");
+            return;
+        }
+
+        String oldValue = inState.getDataBase().put(args[0], args[1]);
         if (oldValue == null) {
             System.out.println("new");
         } else {

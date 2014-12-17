@@ -5,17 +5,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class Cp implements Command {
+public class Cp implements Command<ShellState> {
 
-    public final String getName() {
+    public String getName() {
 
         return "cp";
     }
 
-    private void copy(final Path source, final Path target) throws IOException {
+    private void copy(Path source, Path target) throws IOException {
 
+        target = target.resolve(source.getFileName());
         if (source.toFile().isFile()) {
-            Files.copy(source, target.resolve(source.getFileName()));
+            Files.copy(source, target);
         } else {
             File[] masOfSource = source.toFile().listFiles();
             target.toFile().mkdir();
@@ -25,11 +26,11 @@ public class Cp implements Command {
         }
     }
 
-    public final void executeCmd(final Shell shell, final String[] args) throws IOException {
+    public void executeCmd(ShellState inState, String[] args) throws IOException {
 
         if (2 == args.length) {
-            Path source = shell.getState().getPath().resolve(args[0]).normalize();
-            Path target = shell.getState().getPath().resolve(args[1]).normalize();
+            Path source = inState.getPath().resolve(args[0]).normalize();
+            Path target = inState.getPath().resolve(args[1]).normalize();
             if (source.toFile().isFile() && target.toFile().isFile()) {
                 throw new IOException("not allowed to copy file to file");
             }

@@ -1,7 +1,7 @@
 package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
 
 import ru.fizteh.fivt.students.ivan_ivanov.filemap.FileMapState;
-import ru.fizteh.fivt.students.ivan_ivanov.filemap.Utils;
+import ru.fizteh.fivt.students.ivan_ivanov.filemap.FileMapUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,11 +11,9 @@ import java.util.Map;
 
 public class MultiFileHashMapUtils {
 
-    private static final int MAX = 16;
+    public static void read(File currentDir, Map<String, String> currentMap) throws IOException {
 
-    public static void read(final File currentDir, final Map<String, String> currentMap) throws IOException {
-
-        for (int directNumber = 0; directNumber < MAX; ++directNumber) {
+        for (int directNumber = 0; directNumber < 16; ++directNumber) {
             File subDir = new File(currentDir, directNumber + ".dir");
             if (!subDir.exists()) {
                 continue;
@@ -24,19 +22,20 @@ public class MultiFileHashMapUtils {
                 throw new IOException(subDir.getName() + "isn't directory");
             }
 
-            for (int fileNumber = 0; fileNumber < MAX; ++fileNumber) {
+            for (int fileNumber = 0; fileNumber < 16; ++fileNumber) {
                 File currentFile = new File(subDir, fileNumber + ".dat");
                 if (!currentFile.exists()) {
                     continue;
                 }
                 FileMapState state = new FileMapState(currentFile);
                 state.setDataBase(currentMap);
-                Utils.readDataBase(state);
+                FileMapUtils.readDataBase(state);
             }
         }
     }
 
-    public static void deleteDirectory(final File directory) throws IOException {
+    public static void deleteDirectory(File directory) throws IOException {
+
         File[] files = directory.listFiles();
         if (files != null) {
             for (File f : files) {
@@ -49,22 +48,22 @@ public class MultiFileHashMapUtils {
         }
     }
 
-    public static void write(final File currentDir, final Map<String, String> currentMap) throws IOException {
+    public static void write(File currentDir, Map<String, String> currentMap) throws IOException {
 
-        Map<String, String>[][] arrayOfMap = new Map[MAX][MAX];
+        Map<String, String>[][] arrayOfMap = new Map[16][16];
         for (String key : currentMap.keySet()) {
             int byteOfKey = key.getBytes(StandardCharsets.UTF_8)[0];
-            int nDirectory = byteOfKey % MAX;
-            int nFile = byteOfKey / MAX % MAX;
+            int nDirectory = Math.abs(byteOfKey) % 16;
+            int nFile = Math.abs(byteOfKey) / 16 % 16;
             if (arrayOfMap[nDirectory][nFile] == null) {
                 arrayOfMap[nDirectory][nFile] = new HashMap<String, String>();
             }
             arrayOfMap[nDirectory][nFile].put(key, currentMap.get(key));
         }
 
-        for (int i = 0; i < MAX; i++) {
+        for (int i = 0; i < 16; i++) {
             File dir = new File(currentDir, i + ".dir");
-            for (int j = 0; j < MAX; j++) {
+            for (int j = 0; j < 16; j++) {
                 File file = new File(dir, j + ".dat");
                 if (null == arrayOfMap[i][j]) {
                     if (file.exists()) {
@@ -80,7 +79,7 @@ public class MultiFileHashMapUtils {
                 if (!file.exists()) {
                     file.createNewFile();
                 }
-                Utils.write(arrayOfMap[i][j], file);
+                FileMapUtils.write(arrayOfMap[i][j], file);
             }
 
             if (dir.exists()) {
@@ -89,6 +88,5 @@ public class MultiFileHashMapUtils {
                 }
             }
         }
-
     }
 }

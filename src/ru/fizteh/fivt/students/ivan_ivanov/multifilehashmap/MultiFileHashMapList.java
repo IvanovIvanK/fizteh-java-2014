@@ -1,12 +1,11 @@
 package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
 
 import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
-import ru.fizteh.fivt.students.ivan_ivanov.shell.Shell;
 
 import java.io.IOException;
-import java.util.Set;
+import java.util.List;
 
-public class MultiFileHashMapList implements Command {
+public class MultiFileHashMapList implements Command<MultiFileHashMapState> {
 
     @Override
     public final String getName() {
@@ -14,17 +13,17 @@ public class MultiFileHashMapList implements Command {
     }
 
     @Override
-    public final void executeCmd(final Shell shell, final String[] args) throws IOException {
+    public final void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
 
         if (args.length != 0) {
             System.out.println("incorrect number of arguments");
             return;
         }
-        if (((MultiFileHashMap) shell).getMFHMState().getCurrentTable() == null) {
+        if (inState.getCurrentTable() == null) {
             System.out.println("no table");
             return;
         }
-        Set<String> keys = ((MultiFileHashMap) shell).getMFHMState().getDataBaseFromCurrentTable().keySet();
+        List<String> keys = inState.getCurrentTableListOfKeys();
         System.out.println(String.join(", ", keys));
     }
 }
