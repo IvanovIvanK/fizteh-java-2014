@@ -15,10 +15,8 @@ public class MultiFileHashMapRemove extends Command<MultiFileHashMapState> {
     }
 
     @Override
-    public void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
-        if (!checkArgs(numArg, args.length)) {
-            return;
-        }
+    public void work(MultiFileHashMapState inState, String[] args) throws IOException {
+
         if (!checkTable(inState)) {
             return;
         }

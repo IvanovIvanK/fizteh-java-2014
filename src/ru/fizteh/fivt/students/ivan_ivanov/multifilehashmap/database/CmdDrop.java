@@ -15,11 +15,8 @@ public class CmdDrop extends Command<MultiFileHashMapState> {
     }
 
     @Override
-    public void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
+    public void work(MultiFileHashMapState inState, String[] args) throws IOException {
 
-        if (!checkArgs(numArg, args.length)) {
-            return;
-        }
         if (inState.getTable(args[0]) == null) {
             System.out.println(args[0] + " not exists");
             return;

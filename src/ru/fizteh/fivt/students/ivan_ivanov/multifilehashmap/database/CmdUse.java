@@ -17,11 +17,8 @@ public class CmdUse extends Command<MultiFileHashMapState> {
     }
 
     @Override
-    public void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
+    public void work(MultiFileHashMapState inState, String[] args) throws IOException {
 
-        if (!checkArgs(numArg, args.length)) {
-            return;
-        }
         if (inState.getCurrentTable() != null) {
             if (!inState.getCurrentTable().getName().equals(args[0])) {
                 int size = inState.getChangesBaseSize();

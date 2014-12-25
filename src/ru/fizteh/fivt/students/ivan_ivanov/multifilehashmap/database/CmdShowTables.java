@@ -23,6 +23,11 @@ public class CmdShowTables extends Command<MultiFileHashMapState> {
             throw new IOException("Can't find key");
         }
 
+        work(inState, args);
+    }
+
+    @Override
+    public final void work(MultiFileHashMapState inState, String[] args) throws IOException {
         System.out.println("table_name row_count");
 
         Set<String> tables = inState.getTableSet();

@@ -52,4 +52,6 @@ public class Rm extends Command<ShellState> {
             inState.setPath(thePath);
         }
     }
+    public void work(ShellState inState, String[] args) throws IOException{
+    }
 }

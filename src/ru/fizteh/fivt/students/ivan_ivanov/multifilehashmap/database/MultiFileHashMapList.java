@@ -15,11 +15,8 @@ public class MultiFileHashMapList extends Command<MultiFileHashMapState> {
     }
 
     @Override
-    public final void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
+    public final void work(MultiFileHashMapState inState, String[] args) throws IOException {
 
-        if (!checkArgs(numArg, args.length)) {
-            return;
-        }
         if (!checkTable(inState)) {
             return;
         }

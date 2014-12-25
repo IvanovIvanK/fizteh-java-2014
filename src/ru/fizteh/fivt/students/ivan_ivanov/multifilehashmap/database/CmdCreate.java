@@ -15,11 +15,7 @@ public class CmdCreate extends Command<MultiFileHashMapState> {
     }
 
     @Override
-    public void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
-
-        if (!checkArgs(numArg, args.length)) {
-            return;
-        }
+    public void work(MultiFileHashMapState inState, String[] args) throws IOException {
 
         if (inState.createTable(args[0]) != null) {
             System.out.println("created");

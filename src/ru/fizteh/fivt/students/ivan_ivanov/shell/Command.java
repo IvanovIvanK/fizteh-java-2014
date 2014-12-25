@@ -6,6 +6,8 @@ import java.io.IOException;
 
 public abstract class Command<State> {
 
+    protected int numArg;
+
     public boolean checkArgs(int needArg, int haveArg) {
         if (needArg != haveArg) {
             System.out.println("incorrect number of arguments");
@@ -24,7 +26,14 @@ public abstract class Command<State> {
 
     public abstract String getName();
 
-    public abstract void executeCmd(State shell, String[] args) throws IOException;
+    public abstract void work(State shell, String[] args) throws IOException;
+
+    public void executeCmd(State shell, String[] args) throws IOException {
+        if (!checkArgs(numArg, args.length)) {
+            return;
+        }
+        work(shell, args);
+    }
 
 
 }
