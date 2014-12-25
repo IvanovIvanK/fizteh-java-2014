@@ -5,7 +5,9 @@ import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 import java.io.IOException;
 import java.util.List;
 
-public class MultiFileHashMapList implements Command<MultiFileHashMapState> {
+public class MultiFileHashMapList extends Command<MultiFileHashMapState> {
+
+    private int numArg = 0;
 
     @Override
     public final String getName() {
@@ -15,12 +17,10 @@ public class MultiFileHashMapList implements Command<MultiFileHashMapState> {
     @Override
     public final void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
 
-        if (args.length != 0) {
-            System.out.println("incorrect number of arguments");
+        if (!checkArgs(numArg, args.length)) {
             return;
         }
-        if (inState.getCurrentTable() == null) {
-            System.out.println("no table");
+        if (!checkTable(inState)) {
             return;
         }
         List<String> keys = inState.getCurrentTableListOfKeys();

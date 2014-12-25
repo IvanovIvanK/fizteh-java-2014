@@ -5,7 +5,7 @@ import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 import java.io.IOException;
 import java.util.Set;
 
-public class List implements Command<FileMapState> {
+public class List extends Command<FileMapState> {
 
     public final String getName() {
         return "list";

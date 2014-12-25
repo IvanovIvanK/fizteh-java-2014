@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 
-public class Cat implements Command<ShellState> {
+public class Cat extends Command<ShellState> {
 
     public String getName() {
 

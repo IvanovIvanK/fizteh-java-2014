@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-public class CmdUse implements Command<MultiFileHashMapState> {
+public class CmdUse extends Command<MultiFileHashMapState> {
+
+    private int numArg = 1;
 
     @Override
     public String getName() {
@@ -17,6 +19,9 @@ public class CmdUse implements Command<MultiFileHashMapState> {
     @Override
     public void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
 
+        if (!checkArgs(numArg, args.length)) {
+            return;
+        }
         if (inState.getCurrentTable() != null) {
             if (!inState.getCurrentTable().getName().equals(args[0])) {
                 int size = inState.getChangesBaseSize();

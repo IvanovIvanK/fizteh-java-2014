@@ -4,7 +4,9 @@ import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 
 import java.io.IOException;
 
-public class CmdCommit implements Command<MultiFileHashMapState> {
+public class CmdCommit extends Command<MultiFileHashMapState> {
+
+    private int numArg = 0;
 
     @Override
     public String getName() {
@@ -15,10 +17,14 @@ public class CmdCommit implements Command<MultiFileHashMapState> {
     @Override
     public void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
 
-        if (inState.getCurrentTable() == null) {
-            System.out.println("no table");
+        if (!checkArgs(numArg, args.length)) {
             return;
         }
+
+        if (!checkTable(inState)) {
+            return;
+        }
+
         try {
             System.out.println(inState.getCurrentTable().commit());
         } catch (RuntimeException e) {

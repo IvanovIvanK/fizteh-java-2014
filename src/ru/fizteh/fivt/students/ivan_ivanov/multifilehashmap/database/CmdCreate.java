@@ -4,7 +4,9 @@ import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 
 import java.io.IOException;
 
-public class CmdCreate implements Command<MultiFileHashMapState> {
+public class CmdCreate extends Command<MultiFileHashMapState> {
+
+    private int numArg = 1;
 
     @Override
     public String getName() {
@@ -14,6 +16,10 @@ public class CmdCreate implements Command<MultiFileHashMapState> {
 
     @Override
     public void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
+
+        if (!checkArgs(numArg, args.length)) {
+            return;
+        }
 
         if (inState.createTable(args[0]) != null) {
             System.out.println("created");

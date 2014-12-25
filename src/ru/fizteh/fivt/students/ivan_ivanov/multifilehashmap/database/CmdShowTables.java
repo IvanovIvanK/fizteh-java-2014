@@ -5,7 +5,7 @@ import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 import java.io.IOException;
 import java.util.Set;
 
-public class CmdShowTables implements Command<MultiFileHashMapState> {
+public class CmdShowTables extends Command<MultiFileHashMapState> {
 
     @Override
     public final String getName() {

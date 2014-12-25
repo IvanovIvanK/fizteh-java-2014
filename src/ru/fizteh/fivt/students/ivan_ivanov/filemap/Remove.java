@@ -4,7 +4,7 @@ import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 
 import java.io.IOException;
 
-public class Remove implements Command<FileMapState> {
+public class Remove extends Command<FileMapState> {
 
     public String getName() {
 

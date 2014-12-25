@@ -3,7 +3,7 @@ package ru.fizteh.fivt.students.ivan_ivanov.shell;
 import java.io.File;
 import java.io.IOException;
 
-public class Mkdir implements Command<ShellState> {
+public class Mkdir extends Command<ShellState> {
 
     public String getName() {
 

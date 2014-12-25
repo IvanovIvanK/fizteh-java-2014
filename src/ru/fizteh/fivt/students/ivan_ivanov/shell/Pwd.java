@@ -2,7 +2,7 @@ package ru.fizteh.fivt.students.ivan_ivanov.shell;
 
 import java.io.IOException;
 
-public class Pwd implements Command<ShellState> {
+public class Pwd extends Command<ShellState> {
 
     public String getName() {
 

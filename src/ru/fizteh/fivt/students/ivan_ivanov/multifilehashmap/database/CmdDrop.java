@@ -4,7 +4,9 @@ import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 
 import java.io.IOException;
 
-public class CmdDrop implements Command<MultiFileHashMapState> {
+public class CmdDrop extends Command<MultiFileHashMapState> {
+
+    private int numArg = 0;
 
     @Override
     public String getName() {
@@ -15,6 +17,9 @@ public class CmdDrop implements Command<MultiFileHashMapState> {
     @Override
     public void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
 
+        if (!checkArgs(numArg, args.length)) {
+            return;
+        }
         if (inState.getTable(args[0]) == null) {
             System.out.println(args[0] + " not exists");
             return;

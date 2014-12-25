@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class Cp implements Command<ShellState> {
+public class Cp extends Command<ShellState> {
 
     public String getName() {
 

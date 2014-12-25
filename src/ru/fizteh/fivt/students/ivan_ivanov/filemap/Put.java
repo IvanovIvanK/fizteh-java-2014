@@ -4,7 +4,7 @@ import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 
 import java.io.IOException;
 
-public class Put implements Command<FileMapState> {
+public class Put extends Command<FileMapState> {
 
     public String getName() {
 

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class Rm implements Command<ShellState> {
+public class Rm extends Command<ShellState> {
 
     public String getName() {
 

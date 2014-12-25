@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public class Ls implements Command<ShellState> {
+public class Ls extends Command<ShellState> {
 
     public final String getName() {
 
