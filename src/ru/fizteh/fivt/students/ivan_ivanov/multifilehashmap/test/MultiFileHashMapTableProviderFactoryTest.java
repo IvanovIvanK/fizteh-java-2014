@@ -1,9 +1,10 @@
-package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
+package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.test;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database.MultiFileHashMapTableProviderFactory;
 
 import java.io.File;
 

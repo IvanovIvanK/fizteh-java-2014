@@ -1,21 +1,21 @@
-package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
+package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database;
 
 import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 
 import java.io.IOException;
 
-public class MultiFileHashMapRemove implements Command<MultiFileHashMapState> {
+public class MultiFileHashMapPut implements Command<MultiFileHashMapState> {
 
     @Override
     public String getName() {
 
-        return "remove";
+        return "put";
     }
 
     @Override
     public void executeCmd(MultiFileHashMapState inState, String[] args) throws IOException {
 
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.out.println("incorrect number of arguments");
             return;
         }
@@ -23,11 +23,13 @@ public class MultiFileHashMapRemove implements Command<MultiFileHashMapState> {
             System.out.println("no table");
             return;
         }
-        String value = inState.removeFromCurrentTable(args[0]);
+        String value = inState.putToCurrentTable(args[0], args[1]);
         if (null == value) {
-            System.out.println("not found");
+            System.out.println("new");
         } else {
-            System.out.println("removed");
+            System.out.println("overwrite");
+            System.out.println(value);
         }
     }
 }
+

@@ -1,4 +1,4 @@
-package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
+package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database;
 
 import ru.fizteh.fivt.storage.strings.Table;
 
@@ -52,7 +52,7 @@ public class MultiFileHashMapTable implements Table {
     public String get(String key) {
 
         if (key == null) {
-            throw new IllegalArgumentException("Incorrect key to get.");
+            throw new IllegalArgumentException("Incorrect key to get");
         }
         String newKey = key.trim();
         if (newKey.isEmpty()) {
@@ -132,7 +132,7 @@ public class MultiFileHashMapTable implements Table {
     }
 
     @Override
-    public int commit() {
+    public int commit() throws RuntimeException {
 
         int size = changesBase.size();
         try {
@@ -149,7 +149,7 @@ public class MultiFileHashMapTable implements Table {
                 MultiFileHashMapUtils.write(dataFile, dataBase);
             }
         } catch (IOException e) {
-            System.err.println(e);
+            throw new RuntimeException(e.getMessage());
         }
 
         changesBase.clear();

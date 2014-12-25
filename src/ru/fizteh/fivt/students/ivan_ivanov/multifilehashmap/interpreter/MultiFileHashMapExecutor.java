@@ -1,5 +1,6 @@
-package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
+package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.interpreter;
 
+import ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database.*;
 import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 import ru.fizteh.fivt.students.ivan_ivanov.shell.Executor;
 

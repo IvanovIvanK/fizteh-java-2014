@@ -1,15 +1,15 @@
-package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
+package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database;
 
 import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 
 import java.io.IOException;
 
-public class CmdRollback implements Command<MultiFileHashMapState> {
+public class CmdCommit implements Command<MultiFileHashMapState> {
 
     @Override
     public String getName() {
 
-        return "rollback";
+        return "commit";
     }
 
     @Override
@@ -19,7 +19,10 @@ public class CmdRollback implements Command<MultiFileHashMapState> {
             System.out.println("no table");
             return;
         }
-
-        System.out.println(inState.getCurrentTable().rollback());
+        try {
+            System.out.println(inState.getCurrentTable().commit());
+        } catch (RuntimeException e) {
+            throw new IOException(e.getMessage());
+        }
     }
 }

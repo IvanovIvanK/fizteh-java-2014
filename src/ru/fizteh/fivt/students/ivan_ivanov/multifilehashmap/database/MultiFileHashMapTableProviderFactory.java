@@ -1,4 +1,4 @@
-package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
+package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database;
 
 import ru.fizteh.fivt.storage.strings.TableProviderFactory;
 

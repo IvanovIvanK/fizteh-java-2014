@@ -1,7 +1,8 @@
-package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
+package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.test;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database.MultiFileHashMapTable;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -109,6 +110,15 @@ public class MultiFileHashMapTableTest {
         table.put("Key2", "Value2");
         table.put("Key3", "Value3");
         assertEquals(3, table.rollback());
+    }
+
+    @Test
+    public void testRollbackAndCheck() throws Exception {
+        table.put("Key1", "Value1");
+        table.put("Key2", "Value2");
+        table.put("Key3", "Value3");
+        table.rollback();
+        assertEquals(0, table.size());
     }
 
     @Test

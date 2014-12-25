@@ -1,4 +1,4 @@
-package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
+package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database;
 
 import ru.fizteh.fivt.storage.strings.Table;
 import ru.fizteh.fivt.storage.strings.TableProvider;
@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class MultiFileHashMapTableProvider implements TableProvider {
+
+    private static final String REG_EXP = "[a-zA-Zа-яА-Я0-9]+";
 
     private Map<String, MultiFileHashMapTable> mapOfTables;
     private File currentDir;
@@ -41,7 +43,7 @@ public class MultiFileHashMapTableProvider implements TableProvider {
         if (name == null) {
             throw new IllegalArgumentException("null name to get");
         }
-        if (!name.matches("[a-zA-Zа-яА-Я0-9]+")) {
+        if (!name.matches(REG_EXP)) {
             throw new IllegalArgumentException("incorrect name to get");
         }
 
@@ -58,7 +60,7 @@ public class MultiFileHashMapTableProvider implements TableProvider {
         if (name == null) {
             throw new IllegalArgumentException("null name to create");
         }
-        if (!name.matches("[a-zA-Zа-яА-Я0-9]+")) {
+        if (!name.matches(REG_EXP)) {
             throw new IllegalArgumentException("incorrect name to create");
         }
 
@@ -81,7 +83,7 @@ public class MultiFileHashMapTableProvider implements TableProvider {
     @Override
     public void removeTable(String name) {
 
-        if (name == null || !name.matches("[a-zA-Zа-яА-Я0-9]+")) {
+        if (name == null || !name.matches(REG_EXP)) {
             throw new IllegalArgumentException("incorrect table name to remove");
         }
         if (!mapOfTables.containsKey(name)) {

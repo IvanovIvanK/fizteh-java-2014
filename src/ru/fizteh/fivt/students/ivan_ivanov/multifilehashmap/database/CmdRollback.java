@@ -1,15 +1,15 @@
-package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
+package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database;
 
 import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 
 import java.io.IOException;
 
-public class CmdSize implements Command<MultiFileHashMapState> {
+public class CmdRollback implements Command<MultiFileHashMapState> {
 
     @Override
     public String getName() {
 
-        return "size";
+        return "rollback";
     }
 
     @Override
@@ -20,6 +20,6 @@ public class CmdSize implements Command<MultiFileHashMapState> {
             return;
         }
 
-        System.out.println(inState.getCurrentTable().size());
+        System.out.println(inState.getCurrentTable().rollback());
     }
 }

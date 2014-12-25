@@ -1,4 +1,4 @@
-package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap;
+package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database;
 
 import ru.fizteh.fivt.students.ivan_ivanov.filemap.FileMapState;
 import ru.fizteh.fivt.students.ivan_ivanov.filemap.FileMapUtils;
@@ -11,10 +11,15 @@ import java.util.Map;
 
 public class MultiFileHashMapUtils {
 
+    private static final int MAX_DIRS = 16;
+    private static final int MAX_FILES = 16;
+    private static final String DIR_SUFFIX = ".dir";
+    private static final String FILE_SUFFIX = ".dat";
+
     public static void read(File currentDir, Map<String, String> currentMap) throws IOException {
 
-        for (int directNumber = 0; directNumber < 16; ++directNumber) {
-            File subDir = new File(currentDir, directNumber + ".dir");
+        for (int directNumber = 0; directNumber < MAX_DIRS; ++directNumber) {
+            File subDir = new File(currentDir, directNumber + DIR_SUFFIX);
             if (!subDir.exists()) {
                 continue;
             }
@@ -22,8 +27,8 @@ public class MultiFileHashMapUtils {
                 throw new IOException(subDir.getName() + "isn't directory");
             }
 
-            for (int fileNumber = 0; fileNumber < 16; ++fileNumber) {
-                File currentFile = new File(subDir, fileNumber + ".dat");
+            for (int fileNumber = 0; fileNumber < MAX_FILES; ++fileNumber) {
+                File currentFile = new File(subDir, fileNumber + FILE_SUFFIX);
                 if (!currentFile.exists()) {
                     continue;
                 }
@@ -50,21 +55,21 @@ public class MultiFileHashMapUtils {
 
     public static void write(File currentDir, Map<String, String> currentMap) throws IOException {
 
-        Map<String, String>[][] arrayOfMap = new Map[16][16];
+        Map<String, String>[][] arrayOfMap = new Map[MAX_DIRS][MAX_FILES];
         for (String key : currentMap.keySet()) {
             int byteOfKey = key.getBytes(StandardCharsets.UTF_8)[0];
-            int nDirectory = Math.abs(byteOfKey) % 16;
-            int nFile = Math.abs(byteOfKey) / 16 % 16;
+            int nDirectory = Math.abs(byteOfKey) % MAX_DIRS;
+            int nFile = Math.abs(byteOfKey) / MAX_DIRS % MAX_FILES;
             if (arrayOfMap[nDirectory][nFile] == null) {
                 arrayOfMap[nDirectory][nFile] = new HashMap<String, String>();
             }
             arrayOfMap[nDirectory][nFile].put(key, currentMap.get(key));
         }
 
-        for (int i = 0; i < 16; i++) {
-            File dir = new File(currentDir, i + ".dir");
+        for (int i = 0; i < MAX_DIRS; i++) {
+            File dir = new File(currentDir, i + DIR_SUFFIX);
             for (int j = 0; j < 16; j++) {
-                File file = new File(dir, j + ".dat");
+                File file = new File(dir, j + FILE_SUFFIX);
                 if (null == arrayOfMap[i][j]) {
                     if (file.exists()) {
                         file.delete();
