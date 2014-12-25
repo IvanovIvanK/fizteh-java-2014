@@ -1,4 +1,6 @@
 package ru.fizteh.fivt.students.ivan_ivanov.filemap;
+import ru.fizteh.fivt.students.ivan_ivanov.shell.Executor;
+
 
 import ru.fizteh.fivt.students.ivan_ivanov.shell.Shell;
 
@@ -23,7 +25,7 @@ public class FileMapMain {
             FileMapUtils.readDataBase(startState);
             Shell<FileMapState> filemap = new Shell<FileMapState>(startState);
 
-            FileMapExecutor exec = new FileMapExecutor();
+            Executor exec = new Executor();
 
             if (args.length > 0) {
                 filemap.batchState(args, exec);

@@ -4,9 +4,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Executor<State> {
+public class Executor<State> {
 
     public Map<String, Command> mapOfCmd = new HashMap<String, Command>();
+
+    public void setMapOfCmd(Command[] cmds) {
+        for (Command cmd : cmds) {
+            mapOfCmd.put(cmd.getName(), cmd);
+        }
+    }
+
 
     public String[] argsCheck(String inCommand) {
 
@@ -29,7 +36,6 @@ public abstract class Executor<State> {
         return tmp;
     }
 
-    public abstract void list();
 
     public void execute(State state, String cmd) throws IOException {
 

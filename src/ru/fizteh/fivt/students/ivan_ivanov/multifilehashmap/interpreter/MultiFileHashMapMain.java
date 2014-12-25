@@ -1,7 +1,9 @@
 package ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.interpreter;
 
-import ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database.MultiFileHashMapState;
+import ru.fizteh.fivt.students.ivan_ivanov.multifilehashmap.database.*;
+import ru.fizteh.fivt.students.ivan_ivanov.shell.Command;
 import ru.fizteh.fivt.students.ivan_ivanov.shell.Shell;
+import ru.fizteh.fivt.students.ivan_ivanov.shell.Executor;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +31,11 @@ public class MultiFileHashMapMain {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+
+        Command[] cmds = new Command[]{new CmdCommit(), new CmdCreate(), new CmdDrop(), new CmdRollback(),
+                new CmdShowTables(), new CmdSize(), new CmdUse(), new MultiFileHashMapExit(), new MultiFileHashMapGet(),
+                new MultiFileHashMapRemove(), new MultiFileHashMapPut(), new MultiFileHashMapList()};
+
         File base = new File(currentProperty);
         try {
             if (!base.exists()) {
@@ -39,7 +46,8 @@ public class MultiFileHashMapMain {
             MultiFileHashMapState startState = new MultiFileHashMapState(base);
             Shell<MultiFileHashMapState> mfhm = new Shell<MultiFileHashMapState>(startState);
 
-            MultiFileHashMapExecutor exec = new MultiFileHashMapExecutor();
+            Executor exec = new Executor();
+            exec.setMapOfCmd(cmds);
 
             if (args.length > 0) {
                 mfhm.batchState(args, exec);

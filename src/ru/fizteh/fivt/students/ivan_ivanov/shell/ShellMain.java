@@ -10,7 +10,7 @@ public class ShellMain {
         File currentDirectory = new File("");
         ShellState startState = new ShellState(currentDirectory);
         Shell<ShellState> shell = new Shell<ShellState>(startState);
-        ShellExecutor exec = new ShellExecutor();
+        Executor exec = new Executor();
         if (args.length != 0) {
             shell.batchState(args, exec);
         } else {
